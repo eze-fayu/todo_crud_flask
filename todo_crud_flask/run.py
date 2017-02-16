@@ -1,21 +1,12 @@
-from flask import Flask
-from flask import session
-from flask import escape
-from flask import send_from_directory
-from flask import url_for
-from flask import render_template
-from flask import request
-from flask import abort, redirect, url_for
-
-import service as service
+from flask import Flask, session, escape, \
+    send_from_directory, url_for, render_template, \
+    request, abort, redirect, url_for
 
 import os
 
+import service as service
 
 app = Flask(__name__)
-
-# app.config['API_URL'] = os.environ.get('API_URL', 'http://localhost:5000/api/')
-
 
 @app.route('/')
 def index():  # API_URL=app.config['API_URL']
@@ -29,6 +20,3 @@ def index():  # API_URL=app.config['API_URL']
 def hello():
     return 'Hello, World'
 
-@app.route('/')
-def index():
-    return 'Hello World!'
