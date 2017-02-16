@@ -1,5 +1,6 @@
 from pymongo import MongoClient
-from config import MONGO_URI
+from run import app
+
 
 class Database():
     '''
@@ -10,8 +11,7 @@ class Database():
     '''
 
     def __init__(self):
-        print 'howdy howdy'
-        mc = MongoClient(MONGO_URI)
+        mc = MongoClient(app.MONGO_URI)
         self.connection = mc.get_default_database()
 
 

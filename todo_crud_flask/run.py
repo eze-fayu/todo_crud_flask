@@ -8,10 +8,12 @@ import functions as Functions
 import user as User
 from sesh import Sesh
 
-from config import SECRET_KEY
 
 app = Flask(__name__)
-app.secret_key = SECRET_KEY
+
+app.secret_key = os.getenv('SECRET_KEY', 'development_secret_key')
+app.MONGO_URI = os.getenv('MONGO_URI', 'http://localhost:27017')
+
 sesh = Sesh()
 
 
