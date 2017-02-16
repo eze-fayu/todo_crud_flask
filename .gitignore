@@ -1,4 +1,7 @@
 notes.txt
+config.py
+
+.sass-cache
 
 gitflow/
 *.pyc

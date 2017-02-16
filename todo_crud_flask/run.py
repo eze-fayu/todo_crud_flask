@@ -4,19 +4,87 @@ from flask import Flask, session, escape, \
 
 import os
 
-import service as service
+import functions as Functions
+import user as User
+from sesh import Sesh
+
+from config import SECRET_KEY
 
 app = Flask(__name__)
+app.secret_key = SECRET_KEY
+sesh = Sesh()
+
+
+def before_route_load():
+    url_for('static', filename='img/**/*.jpg')
+    return True
 
 @app.route('/')
-def index():  # API_URL=app.config['API_URL']
-    # url_for('static', filename='css/style.css')
-    url_for('static', filename='img/**/*.jpg')
-    value = service.get_value()
+def home_route():
+    before_route_load()
+    value = Functions.get_value()
     return render_template('home.html', value=value)
+
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login_route():
+    before_route_load()
+    return render_template('login.html')
+
+
+
+@app.route('/logout', methods=['GET', 'POST'])
+def logout_route():
+    before_route_load()
+    return render_template('logout.html')
+
+
+@app.route('/new_user', methods=['GET', 'POST'])
+def new_user_route():
+    before_route_load()
+    error = None
+    if request.method == 'POST':
+        sesh.set_username("none")
+        print sesh.get_username()
+        User.insert_user(form=request.form)
+        return redirect(url_for('update_user_route'))
+    return render_template('new_user.html', error=error) 
+
+
+
+
+
+
+@app.route('/update_user', methods=['GET', 'POST'])
+def update_user_route():
+    before_route_load()
+    return render_template('update_user.html') 
+
+
+
+@app.route('/delete_user', methods=['GET', 'POST'])
+def delete_user_route():
+    before_route_load()
+    return render_template('delete_user.html') 
+
+
+
+@app.route('/dashboard')
+def dashboard_route():
+    before_route_load()
+    return render_template('dashboard.html') 
+
+
 
 
 @app.route('/hello')
 def hello():
     return 'Hello, World'
 
+@app.errorhandler(404)
+def page_not_found(error):
+    return render_template('404.html'), 404
+
+if __name__ == "__main__":
+    app.run(port=8000,debug=True)
