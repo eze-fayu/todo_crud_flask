@@ -10,9 +10,7 @@ from sesh import Sesh
 
 
 app = Flask(__name__)
-
 app.secret_key = os.environ.get('SECRET_KEY', 'development_secret_key')
-app.MONGO_URI = os.environ.get('MONGO_URI', 'http://localhost:27017')
 
 sesh = Sesh()
 
