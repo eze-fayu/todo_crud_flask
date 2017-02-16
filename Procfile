@@ -1,1 +1,1 @@
-web: gunicorn run:app --log-file -
+web: gunicorn todo_crud_flaskrun:app --log-file -
