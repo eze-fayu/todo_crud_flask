@@ -1,5 +1,4 @@
-from todo_crud_flask import app
-
+from flask import Flask
 from flask import session
 from flask import escape
 from flask import send_from_directory
