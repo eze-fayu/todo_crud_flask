@@ -1,1 +1,0 @@
-from .todo_crud_flask import app
