@@ -1,0 +1,11 @@
+[  
+  {
+    "id": 1,
+    "user_id": 1,
+    "title": "Test note number 1",
+    "created_at": "TIMESTAMP",
+    "updated_at": "TIMESTAMP",
+    "content": "This is the content of my note. Pretty simple stuff.",
+    "importance": "high",
+  }
+] 
