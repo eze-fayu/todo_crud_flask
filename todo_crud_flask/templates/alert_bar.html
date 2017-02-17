@@ -1,0 +1,17 @@
+{% if active_message %}
+<div class="alert alert-warning">
+  {{ active_message }}
+</div>
+{% endif %}
+{% if active_errors %}
+<div class="alert alert-danger">
+  <p>Please fix the following errors:</p>
+  <ul>
+  {% for err in active_errors %}
+      <li>{{ err }}</li>
+  {% else %}
+      <li><em>Something's wrong, no errors found</em></li>
+  {% endfor %}
+  </ul>
+</div>
+{% endif %}

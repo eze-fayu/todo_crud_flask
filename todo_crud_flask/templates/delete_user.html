@@ -1,13 +1,36 @@
 {% extends "layout.html" %}
 {% block body %}
 
-<div class="container-wrap">
+<div class="container-wrap main">
   <div class="container">
     <div class="row">
       <div class="col-sm-12">
-        <h1>Delete user</h1>
- 
-
+        <h2><i class="fa fa-trash-o"></i> Delete user account</h2>
+        <p>Are you sure you want to delete your account?</p>
+        <p>Username: <strong>{{ sesh.get_username() }}</strong></p>
+        <form 
+          action="delete_user" 
+          method="post" 
+          class="login-form"
+        >
+          <input 
+            type="hidden" 
+            value="true" 
+            name="delete"
+          >
+          <input 
+            type="hidden" 
+            value="{{ user['_id'] }}" 
+            name="_id"
+          >
+          <input 
+           class="btn btn-danger" 
+           type="submit" 
+           name="submit" 
+           value="Delete" 
+          />
+        </form>
+        <a href="update_user" class="btn btn-primary"><i class="fa fa-ban"></i> Cancel - don't delete my account</a>
       </div>
     </div>
   </div>

@@ -1,0 +1,103 @@
+{% extends "layout.html" %}
+{% block body %}
+
+<div class="container-wrap main">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12">
+        <h2><i class="fa fa-pencil"></i> Edit note</h2>
+
+        <form 
+          action="edit_note" 
+          method="post"
+        >
+          <div class="form-group">
+            <label for="description">Note title:</label>
+            <input
+              type="text" 
+              class="form-control" 
+              name="title"
+              placeholder="Enter a title for your note"
+              value="{{ note['title'] }}"
+              required
+            >
+          </div>
+          <dif class="form-group">
+          {% if note_exists_in_db %}
+            <p><strong>Date created: </strong> {{ note['created_at'].strftime('%Y-%m-%d %I:%M:%S') }} </p>
+            <p><strong>Last updated: </strong> {{ note['updated_at'].strftime('%Y-%m-%d %I:%M:%S') }} </p>
+          {% endif %}
+          </dif>
+          <div class="form-group">
+            <label for="type">Note type:</label>
+            <select name="type">
+              <option 
+              {% if not note['type'] %}
+                selected="selected"
+              {% endif %}
+              value=""
+              disabled>Select a note type</option>
+              {% for option in note_model['type'] %}
+                 <option 
+                  value="{{ option }}"
+                  {% if note['type'] == option %}
+                    selected="selected"
+                  {% endif %}
+                >{{ option }}</option>   
+              {% endfor %}
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="description">Note content:</label>
+            <textarea 
+              class="form-control" 
+              name="content" 
+              placeholder="Enter some content for your note"
+              rows="3"
+            >{{ note['content'] | safe }}</textarea>
+          </div>
+          <input 
+            type="hidden"
+            name="_id" 
+            value="{{ note['_id'] | string }}" 
+          />
+          <input 
+            class="btn btn-primary" 
+            type="submit" 
+            name="submit" 
+            value="Save"
+          />
+        </form>
+        <br />
+        <a href="dashboard" class="btn btn-warning"><i class="fa fa-arrow-left"></i> Back to Dashboard</a><br />
+        {% if note_exists_in_db %}
+          <br />
+          <form 
+            action="delete_note" 
+            method="post"
+            onsubmit="return confirm('Are you sure you want to delete this item?');"
+          >
+            <input 
+              type="hidden"
+              name="delete" 
+              value="true" 
+            />
+            <input 
+              type="hidden"
+              name="_id" 
+              value="{{ note['_id'] | string }}" 
+            />
+            <input 
+              class="btn btn-danger" 
+              type="submit" 
+              name="submit"
+              value="Delete note"
+            />
+          </form>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
