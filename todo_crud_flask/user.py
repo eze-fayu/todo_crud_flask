@@ -4,6 +4,11 @@ from flask import escape
 import datetime
 
 class User():
+    '''
+    user class
+    password/authentication functions
+    DB CRUD handlers
+    '''
 
     def __init__(self):
         self.name = 'User'

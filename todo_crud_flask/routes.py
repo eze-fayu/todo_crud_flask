@@ -22,8 +22,6 @@ from forms import LoginForm, \
                   GoToEditNoteForm, \
                   DeleteNoteForm \
 
-
-
 app = Flask(__name__)
 app.secret_key = os.environ.get('SECRET_KEY', 'development_secret_key')
 
@@ -31,11 +29,11 @@ app.secret_key = os.environ.get('SECRET_KEY', 'development_secret_key')
 csrf = CSRFProtect(app)
 hashing = Hashing(app)
 
+# app classes
 sesh = Sesh()
 validators = Validators()
 user = User()
 note = Note()
-
 
 def before_route_load():
     url_for('static', filename='img/**/*.jpg')
@@ -51,7 +49,8 @@ def home_route():
     return render_template('home.html', 
                             sesh=sesh,
                             active_message=active_message, 
-                            active_errors=active_errors)
+                            active_errors=active_errors,
+                            page_title='Home')
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -93,7 +92,8 @@ def login_route():
                             sesh=sesh, 
                             active_message=active_message, 
                             active_errors=active_errors,
-                            form=form) 
+                            form=form,
+                            page_title='Login') 
 
 
 @app.route('/logout', methods=['GET', 'POST'])
@@ -131,7 +131,8 @@ def logout_route():
                             sesh=sesh, 
                             active_message=active_message, 
                             active_errors=active_errors,
-                            form=form)
+                            form=form,
+                            page_title='Logout')
 
 
 @app.route('/new_user', methods=['GET', 'POST'])
@@ -190,7 +191,8 @@ def new_user_route():
                             sesh=sesh, 
                             active_message=active_message, 
                             active_errors=active_errors,
-                            form=form) 
+                            form=form,
+                            page_title='New User') 
 
 
 @app.route('/dashboard')
@@ -219,7 +221,8 @@ def dashboard_route():
                             active_message=active_message, 
                             active_errors=active_errors,
                             notes=found_notes,
-                            form=form) 
+                            form=form,
+                            page_title='Dashboard') 
 
 
 
@@ -259,7 +262,8 @@ def update_user_route():
                             active_message=active_message, 
                             active_errors=active_errors,
                             user=found_user,
-                            form=form) 
+                            form=form,
+                            page_title='Update User') 
 
 
 
@@ -303,7 +307,8 @@ def delete_user_route():
                             active_message=active_message, 
                             active_errors=active_errors,
                             user=found_user,
-                            form=form)
+                            form=form,
+                            page_title='Delete User')
 
 
 
@@ -474,7 +479,8 @@ def edit_note_route():
                             note=found_note,
                             note_exists_in_db=note_exists_in_db,
                             form=form,
-                            delete_form=delete_form) 
+                            delete_form=delete_form,
+                            page_title='Edit Note') 
 
 
 @app.route('/delete_note', methods=['POST'])

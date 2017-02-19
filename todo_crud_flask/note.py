@@ -5,10 +5,13 @@ import datetime
 
 
 class Note():
+    '''
+    note class
+    DB CRUD handlers
+    '''
 
     def __init__(self):
         self.name = 'Note'
-
 
 
     def insert_note(self, user_id, title="", note_type="", content=""):
