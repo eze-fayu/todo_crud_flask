@@ -1,5 +1,4 @@
 # -*- coding: utf8 -*-
-
 import os
 from bson.objectid import ObjectId
 
@@ -12,7 +11,6 @@ from flask_wtf.csrf import CSRFProtect
 from user import User
 from note import Note
 from sesh import Sesh
-from validators import Validators
 from forms import LoginForm, \
                   LogoutForm, \
                   NewUserForm, \
@@ -31,9 +29,9 @@ hashing = Hashing(app)
 
 # app classes
 sesh = Sesh()
-validators = Validators()
 user = User()
 note = Note()
+
 
 def before_route_load():
     url_for('static', filename='img/**/*.jpg')
@@ -57,9 +55,6 @@ def home_route():
 def login_route():
     before_route_load()
 
-    ## confirm we're not logged in
-    ## if we are set session message to "you gotta log out"
-    ## and redirect to /logout
     if not sesh.confirm_not_logged_in():
         return redirect(url_for('logout_route'))
 
@@ -100,15 +95,11 @@ def login_route():
 def logout_route():
     before_route_load()
 
-    ## confirm we're logged in
-    ## if we're not redirect to /login
     if not sesh.confirm_logged_in():
         return redirect(url_for('login_route'))
 
-    ## use the session user_id to find the user object
     found_user = user.find_by_id(ObjectId(sesh.get_user_id()))
 
-    ## if we can't find it redirect to /login
     if not found_user:
         return redirect(url_for('login_route'))
 
@@ -139,9 +130,6 @@ def logout_route():
 def new_user_route():
     before_route_load()
 
-    ## confirm we're not logged in
-    ## if we are set session message to "you gotta log out"
-    ## and redirect to /logout
     if not sesh.confirm_not_logged_in():
         return redirect(url_for('logout_route'))
 
@@ -156,13 +144,12 @@ def new_user_route():
 
             ## additional validation
             ## validate unique username
-            unique_username = user.find_by_username(username)
-            validators.validate_unique_username(unique_username)
+            if user.find_by_username(username):
+                sesh.add_error("That username is already taken.")
 
             ## validate passwords match
-            validators.validate_password_repeated(password, repeat_password);
-
-            ## if any issues, push message to session errors
+            if password != repeat_password:
+                sesh.add_error("Passwords must match.")
 
             ## if no addtional validation errors:
             if not sesh.get_errors():
@@ -202,10 +189,8 @@ def dashboard_route():
     if not sesh.confirm_logged_in():
         return redirect(url_for('login_route'))
 
-    ## use the session user_id to find the user object
     found_user = user.find_by_id(ObjectId(sesh.get_user_id()))
 
-    ## if we can't find it redirect to /login
     if not found_user:
         return redirect(url_for('login_route'))
 
@@ -230,12 +215,9 @@ def dashboard_route():
 def update_user_route():
     before_route_load()
 
-    ## confirm we're logged in
-    ## if we're not redirect to /login
     if not sesh.confirm_logged_in():
         return redirect(url_for('login_route'))
 
-    ## use the session user_id to find the user object
     found_user = user.find_by_id(ObjectId(sesh.get_user_id()))
 
     if not found_user:
@@ -271,12 +253,9 @@ def update_user_route():
 def delete_user_route():
     before_route_load()
 
-    ## confirm we're logged in
-    ## if we're not redirect to /login
     if not sesh.confirm_logged_in():
         return redirect(url_for('login_route'))
 
-    ## use the session user_id to find the user object
     found_user = user.find_by_id(ObjectId(sesh.get_user_id()))
 
     if not found_user:
@@ -294,8 +273,6 @@ def delete_user_route():
                 sesh.unset_user_id()
                 sesh.unset_logged_in()
                 sesh.set_message("User deleted.")
-
-                ## redirect to login
                 return redirect(url_for('login_route'))
             else:
                 sesh.set_message("Nothing changed.")
@@ -311,20 +288,13 @@ def delete_user_route():
                             page_title='Delete User')
 
 
-
-
-
-
 @app.route('/edit_note', methods=['GET', 'POST'])
 def edit_note_route():
     before_route_load()
 
-    ## confirm we're logged in
-    ## if we're not redirect to /login
     if not sesh.confirm_logged_in():
         return redirect(url_for('login_route'))
 
-    ## use the session user_id to find the user object
     found_user = user.find_by_id(ObjectId(sesh.get_user_id()))
 
     if not found_user:
@@ -444,11 +414,9 @@ def edit_note_route():
                         form.note_id.data = found_note.get('_id', '')
                         delete_form.note_id.data = found_note.get('_id', '')
 
-
-
                     # if we can't find inserted note:
                     else:
-                        sesh.set_message("Something went wront - the note wasn't created.")
+                        sesh.set_message("Something went wrong - the note wasn't created.")
                         note_exists_in_db = False
 
                 # if insertion failed:
@@ -464,11 +432,10 @@ def edit_note_route():
 
         # if we have no note_id:
         elif not note_id:
-            sesh.set_message("Something went wront - missing form.note_id")
+            sesh.set_message("Something went wrong - missing form.note_id")
             note_exists_in_db = False
 
 
-    # render page
     active_message = sesh.get_and_unset_message()
     active_errors = sesh.get_and_unset_errors()
     return render_template('edit_note.html',
@@ -485,6 +452,7 @@ def edit_note_route():
 
 @app.route('/delete_note', methods=['POST'])
 def delete_note_route():
+
     if not sesh.confirm_logged_in():
         return redirect(url_for('login_route'))
 
@@ -524,16 +492,15 @@ def delete_note_route():
     return redirect(url_for('dashboard_route'))
 
 
-
-
-
 @app.route('/hello')
 def hello():
     return 'Hello, World'
 
+
 @app.errorhandler(404)
 def page_not_found(error):
     return render_template('404.html'), 404
+
 
 if __name__ == "__main__":
     app.run(port=8000,debug=True)

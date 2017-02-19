@@ -112,6 +112,3 @@ class Sesh():
             return errors
         else:
             return False
-
-
-

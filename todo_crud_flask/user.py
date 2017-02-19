@@ -69,9 +69,7 @@ class User():
     def find_by_username(self, username=""):
         db = Database()
         try:
-            user = db.connection['users'].find_one(
-               { "username": username }
-            )
+            user = db.connection['users'].find_one( { "username": username } )
             return user
 
         except Exception, e:
@@ -80,9 +78,7 @@ class User():
     def find_by_id(self, _id=None):
         db = Database()
         try:
-            user = db.connection['users'].find_one(
-               { "_id": _id }
-            )
+            user = db.connection['users'].find_one( { "_id": _id } )
             return user
 
         except Exception, e:
@@ -117,7 +113,4 @@ class User():
 
         except Exception, e:
             return str(e)
-
-
-
 

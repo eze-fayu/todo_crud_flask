@@ -51,9 +51,7 @@ class Note():
     def find_by_id(self, _id=None):
         db = Database()
         try:
-            res = db.connection['notes'].find_one(
-               { "_id": _id }
-            )
+            res = db.connection['notes'].find_one( { "_id": _id } )
             return res
 
         except Exception, e:
@@ -62,9 +60,7 @@ class Note():
     def find_by_user_id(self, user_id=None):
         db = Database()
         try:
-            res = db.connection['notes'].find(
-               { "user_id": user_id }
-            )
+            res = db.connection['notes'].find( { "user_id": user_id } )
             return res
 
         except Exception, e:
@@ -94,12 +90,7 @@ class Note():
     def belongs_to_user(self, _id, user_id):
         db = Database()
         try:
-            res = db.connection['notes'].find_one(
-               { 
-                    "_id": _id,
-                    "user_id": user_id,
-                }
-            )
+            res = db.connection['notes'].find_one( { "_id": _id, "user_id": user_id } )
             return res
             
         except Exception, e:
