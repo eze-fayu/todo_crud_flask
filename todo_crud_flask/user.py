@@ -21,10 +21,10 @@ class User():
 
 
     def password_check(self, hashing, password, hashed_password):
-        return hashing.check_value(hashed_password, password, salt='abcd')
+        return hashing.check_value(hashed_password, password, salt=self.generate_salt())
 
     def generate_salt(self):
-        return 'abcd'
+        return 'this_is_my_salt'
 
     def encrypt_password(self, hashing, password):
         return hashing.hash_value(password, salt=self.generate_salt())
