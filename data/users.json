@@ -1,9 +1,0 @@
-[  
-  {
-    "username": "test_user_abv_123",
-    "hashed_password": "TBD",
-    "created_at": "TIMESTAMP",
-    "updated_at": "TIMESTAMP",
-    "email": "example@email.com"
-  }
-] 

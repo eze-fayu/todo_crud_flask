@@ -1,7 +1,7 @@
 {
 "version": 3,
-"mappings": "AACA,sEAAsE;ACAtE,IAAK;EACH,eAAe;;AAKjB,eAAgB;EACd,OAAO,EAAE,GAAG;;AAGd,KAAM;EACJ,UAAU,EAAE,KAAK;EACjB,cAAc,EAAE,GAAG;;ACbrB,OAAQ;EACN,gBAAgB,EAAE,OAAO;EACzB,KAAK,EAAE,KAAK;EACZ,UAAU,EAAE,KAAK;;AAGnB,SAAU;EACR,KAAK,EAAE,KAAK;;ACNd,eAAgB;EACd,UAAU,EAAE,GAAG",
-"sources": ["../../../scss/main.scss","../../../scss/modules/theme.scss","../../../scss/modules/footer.scss","../../../scss/modules/dashboard.scss"],
+"mappings": "AACA,6FAA6F;ACA7F,IAAK;EACH,eAAe;;AAKjB,eAAgB;EACd,OAAO,EAAE,GAAG;;AAGd,KAAM;EACJ,UAAU,EAAE,KAAK;EACjB,cAAc,EAAE,GAAG;;ACbrB,OAAQ;EACN,gBAAgB,EAAE,OAAO;EACzB,KAAK,EAAE,KAAK;EACZ,UAAU,EAAE,KAAK;;AAGnB,SAAU;EACR,KAAK,EAAE,KAAK;;ACNd,eAAgB;EACd,UAAU,EAAE,GAAG",
+"sources": ["../scss/main.scss","../scss/modules/theme.scss","../scss/modules/footer.scss","../scss/modules/dashboard.scss"],
 "names": [],
 "file": "style.css"
 }

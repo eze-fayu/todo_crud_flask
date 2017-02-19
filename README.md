@@ -41,7 +41,7 @@ The app will be at `http://localhost:8000`
 
 To watch scss files for changes during development:
 
-`sass --watch scss/main.scss:todo_crud_flask/static/css/style.css`
+`sass --watch todo_crud_flask/static/scss/main.scss:todo_crud_flask/static/css/style.css`
 
 
 ## Deploy
