@@ -1,5 +1,6 @@
 {% extends "layout.html" %}
 {% block body %}
+{% import "macros.html" as macros %}
 
 <div class="container-wrap main">
   <div class="container">
@@ -13,24 +14,17 @@
           method="post" 
           class="login-form"
         >
-          <input 
-            type="hidden" 
-            value="true" 
-            name="delete"
-          >
-          <input 
-            type="hidden" 
-            value="{{ user['_id'] }}" 
-            name="_id"
-          >
-          <input 
-           class="btn btn-danger" 
-           type="submit" 
-           name="submit" 
-           value="Delete" 
-          />
+          {{ form.hidden_tag() }}
+
+          <div class="form-group">
+            <button type="submit" class="btn btn-danger">
+                <i class="fa fa-trash-o"></i> Delete
+            </button>
+          </div>
         </form>
-        <a href="update_user" class="btn btn-primary"><i class="fa fa-ban"></i> Cancel - don't delete my account</a>
+        <div class="form-group">
+          <a href="update_user" class="btn btn-primary"><i class="fa fa-ban"></i> Cancel - don't delete my account</a>
+        </div>
       </div>
     </div>
   </div>

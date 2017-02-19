@@ -5,7 +5,7 @@ A todo-list CRUD app built with Flask + MongoDB.
 
 ## Development
 
-`python todo_crud_flask/run.py`
+`python todo_crud_flask/routes.py`
 
 
 ## Styles

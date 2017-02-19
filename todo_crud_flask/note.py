@@ -1,3 +1,4 @@
+# -*- coding: utf8 -*-
 from database import Database
 from flask import escape
 import datetime
@@ -10,22 +11,22 @@ class Note():
 
 
 
-    def insert_note(self, form, user_id):
+    def insert_note(self, user_id, title="", note_type="", content=""):
         db = Database()
 
-        title =  escape(form.get('title', ""))
-        content =  escape(form.get('content', ""))
-        this_type =  escape(form.get('type', ""))
+        title =  escape(title)
+        note_type =  escape(note_type)
+        content =  escape(content)
 
         try:
             created_at = datetime.datetime.utcnow()
             note = {
-              'title': title,
-              'type': this_type,
-              'content': content,
               'user_id': user_id,
               'created_at': created_at,
-              'updated_at': created_at,
+              'updated_at': created_at,              
+              'title': title,
+              'type': note_type,
+              'content': content
             }
             res = db.connection['notes'].insert_one(note)
             return res.inserted_id
@@ -67,22 +68,37 @@ class Note():
             return str(e)
 
 
-    def update_note(self, form, _id):
+    def update_note(self, _id, title="", content="", note_type="" ):
         db = Database()
         try:
             res = db.connection['notes'].update(
                 {'_id': _id},
                 { '$set': 
                     { 
-                        "title": escape(form['title']),
-                        "content": escape(form['content']),
-                        "type": escape(form['type']),
+                        "title": escape(title),
+                        "content": escape(content),
+                        "type": escape(note_type),
                         "updated_at": datetime.datetime.utcnow()
                     }, 
                 }
             )
             return res['nModified']
 
+        except Exception, e:
+            return str(e)
+
+
+    def belongs_to_user(self, _id, user_id):
+        db = Database()
+        try:
+            res = db.connection['notes'].find_one(
+               { 
+                    "_id": _id,
+                    "user_id": user_id,
+                }
+            )
+            return res
+            
         except Exception, e:
             return str(e)
 

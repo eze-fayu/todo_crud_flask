@@ -6,25 +6,20 @@
     <div class="row">
       <div class="col-sm-12">
         <h2><i class="fa fa-sign-out"></i> Logout</h2>
-        <p>Are you sure you want to logout?</p> <!-- <?php echo htmlentities($_SESSION["username"]); ?> -->
+        <p>Are you sure you want to logout?</p>
         <form 
           action="logout" 
           method="post" 
           class="login-form"
         >
-          <input 
-            type="hidden" 
-            value="true" 
-            name="logout"
-          />
-          <input 
-            class="btn btn-danger" 
-            type="submit" 
-            name="submit" 
-            value="Logout" 
-          />
+          {{ form.hidden_tag() }}
+          <div class="form-group">
+            {{ form.submit(class="btn btn-danger") }}
+          </div>
         </form>
-        <a href="dashboard" class="btn btn-primary"><i class="fa fa-arrow-right"></i> No, stay logged in</a>
+        <div class="form-group">
+          <a href="dashboard" class="btn btn-primary"><i class="fa fa-arrow-right"></i> No, stay logged in</a>
+        </div>
       </div>
     </div>
   </div>

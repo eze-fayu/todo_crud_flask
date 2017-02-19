@@ -1,3 +1,4 @@
+# -*- coding: utf8 -*-
 from database import Database
 from flask import escape
 import datetime
@@ -29,15 +30,15 @@ class User():
         return hashing.hash_value(password, salt=self.generate_salt())
 
 
-    def insert_user(self, hashing, form):
+
+    def insert_user(self, hashing, username, password):
         db = Database()
 
-        username =  escape(form['username'])
-        hashed_password = self.encrypt_password(hashing, form['password'])
+        username =  escape(username)
+        hashed_password = self.encrypt_password(hashing, password)
 
         try:
             created_at = datetime.datetime.utcnow()
-            print created_at
             user = {
               'username': username,
               'hashed_password': hashed_password,
@@ -83,14 +84,14 @@ class User():
             return str(e)
 
 
-    def update_user(self, form, _id):
+    def update_user(self, _id, email):
         db = Database()
         try:
             res = db.connection['users'].update(
                 {'_id': _id},
                 { '$set': 
                     { 
-                        "email": escape(form['email']),
+                        "email": escape(email),
                         "updated_at": datetime.datetime.utcnow() 
                     } 
                 }

@@ -1,5 +1,6 @@
 {% extends "layout.html" %}
 {% block body %}
+{% import "macros.html" as macros %}
 
 <div class="container-wrap main">
   <div class="container">
@@ -10,33 +11,23 @@
           action="new_user" 
           method="post"
         >
-          <p>Username:
-            <input 
-              type="text" 
-              name="username" 
-              value="" 
-            />
-          </p>
-          <p>Password:
-            <input 
-              type="password" 
-              name="password" 
-              value="" 
-            />
-          </p>
-          <p>Repeat password:
-            <input 
-              type="password" 
-              name="repeat-password" 
-              value="" 
-            />
-          </p>
-          <input 
-            class="btn btn-primary" 
-            type="submit" 
-            name="submit" 
-            value="Create User" 
-          />
+          {{ form.hidden_tag() }}
+          <div class="form-group">
+            {{ form.username.label }}
+            {{ form.username(class="form-control") }}            
+            {{ macros.form_errors(form.username) }}
+          </div>
+          <div class="form-group">
+            {{ form.password.label }}
+            {{ form.password(class="form-control") }}            
+            {{ macros.form_errors(form.password) }}
+          </div>
+          <div class="form-group">
+            {{ form.repeat_password.label }}
+            {{ form.repeat_password(class="form-control") }}            
+            {{ macros.form_errors(form.repeat_password) }}
+          </div>
+          {{ form.submit(class="btn btn-primary") }}
         </form>
         <br />
         <h3>Already have a username? Login</h3>

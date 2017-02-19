@@ -1,1 +1,1 @@
-web: gunicorn todo_crud_flask.run:app --log-file -
+web: gunicorn todo_crud_flask.routes:app --log-file -

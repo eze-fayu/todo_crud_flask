@@ -1,3 +1,4 @@
+# -*- coding: utf8 -*-
 from sesh import Sesh
 
 
@@ -49,6 +50,12 @@ class Validators():
         sesh = Sesh()
         if password != repeat:
             sesh.add_error("Passwords must match.")
+
+    def validate_unique_username(self, unique_username):
+        sesh = Sesh()
+        if unique_username:
+            sesh.add_error("That username is already taken.")
+
 
 
 

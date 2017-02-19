@@ -1,3 +1,4 @@
+# -*- coding: utf8 -*-
 from flask import session, url_for, redirect
 from bson.objectid import ObjectId
 
