@@ -4,6 +4,15 @@ A todo-list CRUD app built with Flask + MongoDB.
 
 Example: [https://todo-crud-flask.herokuapp.com](https://todo-crud-flask.herokuapp.com)
 
+## App
+
+Create user accounts with a username and password. Passwords are salted and hashed.
+
+Create TODO notes and view them in your user dashboard. Update notes or delete them.
+
+Update your profile with your email address. Delete your account to erase your data, including all your notes.
+
+
 ## Development
 
 Clone the repository and create a virtualenv
@@ -23,7 +32,7 @@ export MONGO_URI={'mongodb://user:pass@domain.mlab.com:port/user}'
 
 Start the virtualenv
 
-`(venv)$ source venv/bin/activate`
+`$ source venv/bin/activate`
 
 Install packages
 
@@ -52,29 +61,5 @@ Set config variables in Heroku:
 
 Push to heroku
 
-
-
-## Notes
-
-Finished
-- project structure
-- deployed on heroku
-- mongodb connected
-- user routes laid out
-- database class
-- user class
-- user.insert_user
-
-TODO
-- session class
-- user read methods
-- login/logout
-- user delete methods
-- delete_user route
-- dashboard route
-- user update methods
-- update_user route
-- notes CRUD
-- cleanup
 
 
