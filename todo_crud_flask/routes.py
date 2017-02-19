@@ -236,7 +236,7 @@ def update_user_route():
             ## additional validation
             ## validate unique email
             email_taken = user.find_by_email(email) 
-            if email_taken and email_taken.get("_id") != sesh.get_user_id():
+            if email_taken and email_taken.get("_id") != ObjectId(sesh.get_user_id()):
                 sesh.add_error("That email is already being used.")
 
             ## if no addtional validation errors:
