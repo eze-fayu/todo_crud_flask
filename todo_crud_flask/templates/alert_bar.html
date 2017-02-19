@@ -1,10 +1,22 @@
 {% if active_message %}
-<div class="alert alert-warning">
+<div class="alert alert-warning alert-dismissable" role="alert">
   {{ active_message }}
+  <button 
+    type="button" 
+    class="close" 
+    data-dismiss="alert" 
+    aria-label="Close"><span aria-hidden="true">&times;</span>
+  </button>
 </div>
 {% endif %}
 {% if active_errors %}
-<div class="alert alert-danger">
+<div class="alert alert-danger alert-dismissable" role="alert">
+  <button 
+    type="button" 
+    class="close" 
+    data-dismiss="alert" 
+    aria-label="Close"><span aria-hidden="true">&times;</span>
+  </button>
   <p>Please fix the following errors:</p>
   <ul>
   {% for err in active_errors %}
@@ -13,5 +25,6 @@
       <li><em>Something's wrong, no errors found</em></li>
   {% endfor %}
   </ul>
+
 </div>
 {% endif %}
