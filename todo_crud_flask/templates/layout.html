@@ -3,42 +3,31 @@
   <head>
     <title>todo_crud_flask: {{ page_title }}</title>
 
-
-
-
-
   <meta name="description" content="A simple TODO list CRUD app built with Flask. Make an account, create notes and save them to your profile." />
 
   <!-- Schema.org markup for Google+ -->
-  <meta itemprop="name" content="todo_crud_flask: {{ page_title }} | andrewmontes.com"/>
+  <meta itemprop="name" content="todo_crud_flask: {{ page_title }}"/>
   <meta itemprop="description" content="A simple TODO list CRUD app built with Flask. Make an account, create notes and save them to your profile."/>
-  <meta itemprop="image" content="{{ url_for('static', filename='img/og_img.png') }}" />
+  <meta itemprop="image" content="https://todo-crud-flask.herokuapp.com/{{ url_for('static', filename='img/og_img.png') }}" />
 
   <!-- Twitter Card data -->
   <meta name="twitter:card" content="summary_large_image"/>
-  <meta name="twitter:title" content="todo_crud_flask: {{ page_title }} | andrewmontes.com"/>
+  <meta name="twitter:title" content="todo_crud_flask: {{ page_title }}"/>
   <meta name="twitter:description" content="A simple TODO list CRUD app built with Flask. Make an account, create notes and save them to your profile."/>
   <!-- Twitter summary card with large image must be at least 280x150px -->
-  <meta name="twitter:image:src"content="https://fossilfreefunds.org/img/social-share.jpg" />
+  <meta name="twitter:image:src"content="https://todo-crud-flask.herokuapp.com/{{ url_for('static', filename='img/og_img.png') }}" />
 
   <!-- Open Graph data -->
-  <meta property="og:title" content="todo_crud_flask: {{ page_title }} | andrewmontes.com" />
+  <meta property="og:title" content="todo_crud_flask: {{ page_title }}" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://todo-crud-flask.herokuapp.com/" />
-  <meta property="og:image" content="{{ url_for('static', filename='img/og_img.png') }}" />
-  <!-- <meta property="og:image:url" content="{{ url_for('static', filename='img/og_img.png') }}"  /> -->
-  <!-- <meta property="og:image:secure_url" content="https://fossilfreefunds.org/img/social-share.jpg"  /> -->
+  <meta property="og:image" content="https://todo-crud-flask.herokuapp.com/{{ url_for('static', filename='img/og_img.png') }}" />
 
   <meta property="og:image:type" content="image/png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="680" />
   <meta property="og:description" content="A simple TODO list CRUD app built with Flask. Make an account, create notes and save them to your profile." />
   <meta property="og:site_name" content="todo_crud_flask: {{ page_title }} | andrewmontes.com" />
-
-
-
-
-
 
 
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
