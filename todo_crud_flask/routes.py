@@ -230,12 +230,24 @@ def update_user_route():
 
     if request.method == 'POST':
         if form.validate():
+
             email = form.email.data
-            if user.update_user(_id=ObjectId(sesh.get_user_id()), email=email):
-                sesh.set_message("User updated!")
-                return redirect(url_for('dashboard_route'))
-            else:
-                sesh.set_message("Nothing changed.")
+            
+            ## additional validation
+            ## validate unique email
+            if user.find_by_email(email):
+                sesh.add_error("That email is already being used.")
+
+            ## if no addtional validation errors:
+            if not sesh.get_errors():
+
+                # update the user's email
+                if user.update_user(_id=ObjectId(sesh.get_user_id()), email=email):
+                    sesh.set_message("User updated!")
+                    return redirect(url_for('dashboard_route'))
+                else:
+                    sesh.set_message("Nothing changed.")
+
 
     active_message = sesh.get_and_unset_message()
     active_errors = sesh.get_and_unset_errors()

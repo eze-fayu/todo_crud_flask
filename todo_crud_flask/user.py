@@ -84,6 +84,15 @@ class User():
         except Exception, e:
             return str(e)
 
+    def find_by_email(self, email=None):
+        db = Database()
+        try:
+            user = db.connection['users'].find_one( { "email": email } )
+            return user
+
+        except Exception, e:
+            return str(e)
+
 
     def update_user(self, _id, email):
         db = Database()
