@@ -1,9 +1,10 @@
 /* sass --watch todo_crud_flask/static/scss/main.scss:todo_crud_flask/static/css/style.css */
 body {
-  /*color: red;*/ }
+  background-color: #434343; }
 
 .container-wrap {
-  padding: 1em; }
+  padding: 1em;
+  background-color: white; }
 
 .main {
   min-height: 500px;
