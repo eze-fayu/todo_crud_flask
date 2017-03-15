@@ -5,6 +5,8 @@ from bson.objectid import ObjectId
 from flask import Flask, session, escape, \
     send_from_directory, url_for, render_template, \
     request, abort, redirect, Markup
+from flask_script import Manager
+from flask_moment import Moment
 from flask_hashing import Hashing
 from flask_wtf.csrf import CSRFProtect
 
@@ -26,6 +28,8 @@ app.secret_key = os.environ.get('SECRET_KEY', 'development_secret_key')
 # flask extensions
 csrf = CSRFProtect(app)
 hashing = Hashing(app)
+moment = Moment(app)
+manager = Manager(app)
 
 # app classes
 sesh = Sesh()
@@ -512,8 +516,25 @@ def hello():
 
 @app.errorhandler(404)
 def page_not_found(error):
-    return render_template('404.html'), 404
+    active_message = sesh.get_and_unset_message()
+    active_errors = sesh.get_and_unset_errors()
+    return render_template('404.html',
+                            sesh=sesh,
+                            active_message=active_message,
+                            active_errors=active_errors,
+                            page_title='Not Found'), 404
+
+@app.errorhandler(500)
+def internal_server_error(e):
+    active_message = sesh.get_and_unset_message()
+    active_errors = sesh.get_and_unset_errors()
+    return render_template('500.html',
+                            sesh=sesh,
+                            active_message=active_message,
+                            active_errors=active_errors,
+                            page_title='Server Error'), 500
 
 
 if __name__ == "__main__":
-    app.run(port=8000,debug=True)
+    # app.run(port=8000,debug=True)
+    manager.run()

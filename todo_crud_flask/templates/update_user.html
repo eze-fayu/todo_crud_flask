@@ -1,15 +1,14 @@
 {% extends "layout.html" %}
 {% block body %}
 {% import "macros.html" as macros %}
-
 <div class="container-wrap main">
   <div class="container">
     <div class="row">
       <div class="col-sm-12">
         <h2><i class="fa fa-user"></i> Update your user profile</h2>
         <p><strong>Username: {{ user['username'] }}</strong> <small><i>(can't be changed)</i></small></p>
-        <p><strong>Date joined: </strong> {{ user['created_at'].strftime('%Y-%m-%d %I:%M') }} </p>
-        <p><strong>Last updated: </strong> {{ user['updated_at'].strftime('%Y-%m-%d %I:%M') }} </p>
+        <p><strong>Date joined: </strong> {{   moment(user['created_at']).format('LLL') }} </p>
+        <p><strong>Last updated: </strong> {{  moment(user['updated_at']).fromNow(refresh=True)  }} </p>
         <form 
           action="update_user" 
           method="post"

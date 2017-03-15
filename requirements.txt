@@ -5,4 +5,5 @@ gunicorn==19.6.0
 ipython==5.2.2
 pymongo==3.3.0
 Flask_WTF==0.14.2
-
+Flask-Script==2.0.5
+Flask-Moment==0.5.1

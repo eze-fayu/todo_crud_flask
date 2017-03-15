@@ -65,11 +65,11 @@ Push to heroku
 
 ## TODO
 
-- flask-script for command-line options
-- flask-moment for datetimes
+- ~flask-script for command-line options~
+- ~flask-moment for datetimes~  
+- ~404 and 500 pages~
 - Templating with super()
 - Use flash() for messages
-- 404 and 500 pages
 - Validate password + repeat password using EqualTo
 - Redirect all POSTs
 - flask-mail
