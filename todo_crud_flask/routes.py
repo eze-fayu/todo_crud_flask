@@ -2,7 +2,7 @@
 import os
 from bson.objectid import ObjectId
 
-from flask import Flask, session, escape, \
+from flask import Flask, flash, session, escape, \
     send_from_directory, url_for, render_template, \
     request, abort, redirect, Markup
 from flask_script import Manager
@@ -20,7 +20,7 @@ from forms import LoginForm, \
                   DeleteUserForm, \
                   EditNoteForm, \
                   GoToEditNoteForm, \
-                  DeleteNoteForm \
+                  DeleteNoteForm 
 
 app = Flask(__name__)
 app.secret_key = os.environ.get('SECRET_KEY', 'development_secret_key')
@@ -46,12 +46,8 @@ def before_route_load():
 def home_route():
     before_route_load()
 
-    active_message = sesh.get_and_unset_message()
-    active_errors = sesh.get_and_unset_errors()
     return render_template('home.html', 
                             sesh=sesh,
-                            active_message=active_message, 
-                            active_errors=active_errors,
                             page_title='Home')
 
 
@@ -80,17 +76,13 @@ def login_route():
                 sesh.set_logged_in(True)
                 sesh.set_username(found_user["username"])
                 sesh.set_user_id(str(found_user["_id"]))
-                sesh.set_message("User logged in.")
+                flash("User logged in.", 'message')
                 return redirect(url_for('dashboard_route'))
             else:
-                sesh.add_error("Username or password are incorrect.")
+                flash("Username or password are incorrect.", 'error')
 
-    active_message = sesh.get_and_unset_message()
-    active_errors = sesh.get_and_unset_errors()
     return render_template('login.html', 
                             sesh=sesh, 
-                            active_message=active_message, 
-                            active_errors=active_errors,
                             form=form,
                             page_title='Login') 
 
@@ -115,17 +107,13 @@ def logout_route():
             sesh.unset_username()
             sesh.unset_user_id()
             sesh.unset_logged_in()
-            sesh.set_message("User logged out.")
+            flash("User logged out.", 'message')
 
             ## redirect to login
             return redirect(url_for('login_route'))
 
-    active_message = sesh.get_and_unset_message()
-    active_errors = sesh.get_and_unset_errors()
     return render_template('logout.html', 
                             sesh=sesh, 
-                            active_message=active_message, 
-                            active_errors=active_errors,
                             form=form,
                             page_title='Logout')
 
@@ -148,15 +136,14 @@ def new_user_route():
 
             ## additional validation
             ## validate unique username
-            if user.find_by_username(username):
-                sesh.add_error("That username is already taken.")
-
-            ## validate passwords match
-            if password != repeat_password:
-                sesh.add_error("Passwords must match.")
+            username_found = user.find_by_username(username)
+            username_in_use = False
+            if username_found:
+                username_in_use = True
+                flash("That username is already taken.", 'error')
 
             ## if no addtional validation errors:
-            if not sesh.get_errors():
+            if not username_in_use:
                 ## insert the user into the DB
                 ## pash the hasher and the form
                 user.insert_user(hashing=hashing, 
@@ -174,14 +161,10 @@ def new_user_route():
                     ## redirect to update user
                     return redirect(url_for('update_user_route'))
                 else:
-                    sesh.set_message("Something went wrong creating the account.")
+                    flash("Something went wrong creating the account.", 'message')
 
-    active_message = sesh.get_and_unset_message()
-    active_errors = sesh.get_and_unset_errors()
     return render_template('new_user.html', 
                             sesh=sesh, 
-                            active_message=active_message, 
-                            active_errors=active_errors,
                             form=form,
                             page_title='New User') 
 
@@ -203,12 +186,8 @@ def dashboard_route():
 
     form = GoToEditNoteForm()
 
-    active_message = sesh.get_and_unset_message()
-    active_errors = sesh.get_and_unset_errors()
     return render_template('dashboard.html', 
                             sesh=sesh, 
-                            active_message=active_message, 
-                            active_errors=active_errors,
                             notes=found_notes,
                             form=form,
                             page_title='Dashboard') 
@@ -239,27 +218,25 @@ def update_user_route():
             
             ## additional validation
             ## validate unique email
-            email_taken = user.find_by_email(email) 
-            if email_taken and email_taken.get("_id") != ObjectId(sesh.get_user_id()):
-                sesh.add_error("That email is already being used.")
+            email_found = user.find_by_email(email)
+            email_in_use = False
+            if email_found and email_found.get("_id") != ObjectId(sesh.get_user_id()):
+                email_in_use=True
+                flash("That email is already being used.", 'error')
 
             ## if no addtional validation errors:
-            if not sesh.get_errors():
+            if not email_in_use:
 
                 # update the user's email
                 if user.update_user(_id=ObjectId(sesh.get_user_id()), email=email):
-                    sesh.set_message("User updated!")
+                    flash("User updated!", 'message')
                     return redirect(url_for('dashboard_route'))
                 else:
-                    sesh.set_message("Nothing changed.")
+                    flash("Nothing changed.", 'message')
 
 
-    active_message = sesh.get_and_unset_message()
-    active_errors = sesh.get_and_unset_errors()
     return render_template('update_user.html', 
                             sesh=sesh, 
-                            active_message=active_message, 
-                            active_errors=active_errors,
                             user=found_user,
                             form=form,
                             page_title='Update User') 
@@ -289,17 +266,14 @@ def delete_user_route():
                 sesh.unset_username()
                 sesh.unset_user_id()
                 sesh.unset_logged_in()
-                sesh.set_message("User deleted.")
+                flash("User deleted.", 'message')
                 return redirect(url_for('login_route'))
             else:
-                sesh.set_message("Nothing changed.")
+                flash("Nothing changed.", 'message')
 
-    active_message = sesh.get_and_unset_message()
-    active_errors = sesh.get_and_unset_errors()
+
     return render_template('delete_user.html', 
                             sesh=sesh, 
-                            active_message=active_message, 
-                            active_errors=active_errors,
                             user=found_user,
                             form=form,
                             page_title='Delete User')
@@ -383,20 +357,22 @@ def edit_note_route():
                                             note_type=form.note_type.data, 
                                             content=form.content.data):
 
-                            sesh.set_message("Note saved!")
+                            flash("Note saved!", 'message')
+
                                                
                         # if update fails:
                         else:
-                            sesh.set_message("Nothing changed - the note wasn't saved.")
+                            flash("Nothing changed - the note wasn't saved.", 'message')
+
 
 
                     # if form is not valid:
                     else:
-                        sesh.set_message("Nothing changed - fix the errors below and try to update again.")
+                        flash("Nothing changed - fix the errors below and try to update again.", 'message')
 
             # if we don't find the note
             else:
-                sesh.set_message("Something went wrong - Couldn't find a note using the form.note_id")
+                flash("Something went wrong - Couldn't find a note using the form.note_id", 'message')
                 note_exists_in_db = False
 
 
@@ -423,7 +399,7 @@ def edit_note_route():
 
                     # if we found inserted note:
                     if found_note:
-                        sesh.set_message("Note created!")
+                        flash("Note created!", 'message')
                         note_exists_in_db = True
 
                         # update hidden form fields to track _id
@@ -433,32 +409,28 @@ def edit_note_route():
 
                     # if we can't find inserted note:
                     else:
-                        sesh.set_message("Something went wrong - the note wasn't created.")
+                        flash("Something went wrong - the note wasn't created.", 'message')
                         note_exists_in_db = False
 
                 # if insertion failed:
                 else:
-                    sesh.set_message("Nothing changed - the note wasn't created.")
+                    flash("Nothing changed - the note wasn't created.", 'message')
                     note_exists_in_db = False
 
             # if form is not valid:
             else:
-                sesh.set_message("Nothing changed - fix the errors below and try to create the note again.")
+                flash("Nothing changed - fix the errors below and try to create the note again.", 'message')
                 note_exists_in_db = False
 
 
         # if we have no note_id:
         elif not note_id:
-            sesh.set_message("Something went wrong - missing form.note_id")
+            flash("Something went wrong - missing form.note_id", 'message')
             note_exists_in_db = False
 
 
-    active_message = sesh.get_and_unset_message()
-    active_errors = sesh.get_and_unset_errors()
     return render_template('edit_note.html',
                             sesh=sesh,
-                            active_message=active_message,
-                            active_errors=active_errors,
                             user=found_user,
                             note=found_note,
                             note_exists_in_db=note_exists_in_db,
@@ -496,15 +468,15 @@ def delete_note_route():
                 # try the delete
                 if note.delete_note(_id=ObjectId(delete_form.note_id.data),
                                     user_id=ObjectId(sesh.get_user_id())):
-                    sesh.set_message("Note deleted.")
+                    flash("Note deleted.", 'message')
                 
                 # if delete failed:
                 else:
-                    sesh.set_message("Nothing changed - something went wrong deleting the note.")
+                    flash("Nothing changed - something went wrong deleting the note.", 'message')
             
             # if note doesn't belong to user:
             else:
-                sesh.set_message("Nothing changed - that note isn't attached to your account.")
+                flash("Nothing changed - that note isn't attached to your account.", 'message')
 
     return redirect(url_for('dashboard_route'))
 
@@ -516,25 +488,16 @@ def hello():
 
 @app.errorhandler(404)
 def page_not_found(error):
-    active_message = sesh.get_and_unset_message()
-    active_errors = sesh.get_and_unset_errors()
     return render_template('404.html',
                             sesh=sesh,
-                            active_message=active_message,
-                            active_errors=active_errors,
                             page_title='Not Found'), 404
 
 @app.errorhandler(500)
 def internal_server_error(e):
-    active_message = sesh.get_and_unset_message()
-    active_errors = sesh.get_and_unset_errors()
     return render_template('500.html',
                             sesh=sesh,
-                            active_message=active_message,
-                            active_errors=active_errors,
                             page_title='Server Error'), 500
 
 
 if __name__ == "__main__":
-    # app.run(port=8000,debug=True)
     manager.run()

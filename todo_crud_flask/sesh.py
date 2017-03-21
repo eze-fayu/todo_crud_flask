@@ -1,5 +1,5 @@
 # -*- coding: utf8 -*-
-from flask import session, url_for, redirect
+from flask import flash, session, url_for, redirect
 from bson.objectid import ObjectId
 
 
@@ -18,7 +18,7 @@ class Sesh():
 
     def confirm_logged_in(self):
         if not self.get_logged_in():
-            session['message'] = "You must be logged in to do that.";
+            flash("You must be logged in to do that.")
             return False
         else:
             return True
@@ -26,7 +26,7 @@ class Sesh():
 
     def confirm_not_logged_in(self):
         if self.get_logged_in():
-            session['message'] = "You must be logged out to do that.";
+            flash("You must be logged out to do that.")
             return False
         else:
             return True
@@ -71,44 +71,3 @@ class Sesh():
         session.pop('user_id', None)
         return True
 
-    def get_message(self):
-        return session.get('message')
-
-    def set_message(self, input):
-        session['message'] = input
-        return True
-
-    def unset_message(self):
-        session.pop('message', None)
-        return True
-
-    def get_and_unset_message(self):
-        if session.get('message'):
-            message = session['message']
-            session.pop('message', None)
-            return message
-        else:
-            return False
-
-    def get_errors(self):
-        return session.get('errors')
-
-    def add_error(self, input):
-        if not session.get('errors'):
-            session['errors'] = []
-        session['errors'].append(input)
-        return True
-
-    def unset_errors(self):
-        session.pop('errors', None)
-        session['errors'] = []
-        return True
-
-    def get_and_unset_errors(self):
-        if session.get('errors'):
-            errors = session['errors']
-            session.pop('errors', None)
-            session['errors'] = []
-            return errors
-        else:
-            return False

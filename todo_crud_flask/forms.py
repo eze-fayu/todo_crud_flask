@@ -1,7 +1,7 @@
 # -*- coding: utf8 -*-
 from flask_wtf import FlaskForm 
 from wtforms import StringField, HiddenField, PasswordField, TextAreaField, SubmitField, SelectField
-from wtforms.validators import DataRequired, Email, Length
+from wtforms.validators import DataRequired, EqualTo, Email, Length
 
 class LoginForm(FlaskForm):
   username = StringField('Username', validators=[DataRequired("Please enter your username")])
@@ -14,8 +14,9 @@ class LogoutForm(FlaskForm):
 
 class NewUserForm(FlaskForm):
   username = StringField('Username', validators=[DataRequired("Please enter a username"), Length(min=8, message="Usernames must be 8 characters or more."), Length(max=30, message="Usernames must be less than 30 characters.")])
-  password = PasswordField('Password', validators=[DataRequired("Please enter a password"), Length(min=8, message="Passwords must be 8 characters or more."), Length(max=30, message="Passwords must be less than 30 characters.")])
+  password = PasswordField('Password', validators=[DataRequired("Please enter a password"), Length(min=8, message="Passwords must be 8 characters or more."), Length(max=30, message="Passwords must be less than 30 characters."), EqualTo('repeat_password', message='Passwords must match')])
   repeat_password = PasswordField('Repeat Password', validators=[DataRequired("Please re-enter your password"), Length(min=8, message="Passwords must be 8 characters or more."), Length(max=30, message="Passwords must be less than 30 characters.")])
+
   submit = SubmitField("Create user")
 
 class UpdateUserForm(FlaskForm):

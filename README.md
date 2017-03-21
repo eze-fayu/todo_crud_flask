@@ -40,9 +40,9 @@ Install packages
 
 Start the app
 
-`(venv)$ python todo_crud_flask/routes.py`
+`(venv)$ python todo_crud_flask/routes.py runserver --host 0.0.0.0`
 
-The app will be at `http://localhost:8000`
+The app will be at `http://0.0.0.0:5000`
 
 
 
@@ -68,15 +68,16 @@ Push to heroku
 - ~flask-script for command-line options~
 - ~flask-moment for datetimes~  
 - ~404 and 500 pages~
-- Templating with super()
-- Use flash() for messages
-- Validate password + repeat password using EqualTo
-- Redirect all POSTs
-- flask-mail
+- ~Validate password + repeat password using EqualTo~
+- ~Use flash() for messages~
+- ~Use flash() and category filtering for form errors~
 - Package instead of module
 - Blueprints
 - Tests
 
+- Templating with super()
+- flask-mail
+- Redirect all POSTs
 
 
 

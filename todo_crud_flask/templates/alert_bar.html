@@ -1,6 +1,6 @@
-{% if active_message %}
+{% for message in get_flashed_messages(category_filter=["message"]) %}
 <div class="alert alert-warning alert-dismissable" role="alert">
-  {{ active_message }}
+  {{ message }}
   <button 
     type="button" 
     class="close" 
@@ -8,23 +8,15 @@
     aria-label="Close"><span aria-hidden="true">&times;</span>
   </button>
 </div>
-{% endif %}
-{% if active_errors %}
+{% endfor %}
+{% for error in get_flashed_messages(category_filter=["error"])  
 <div class="alert alert-danger alert-dismissable" role="alert">
+  Error: {{ error }}
   <button 
     type="button" 
     class="close" 
     data-dismiss="alert" 
     aria-label="Close"><span aria-hidden="true">&times;</span>
   </button>
-  <p>Please fix the following errors:</p>
-  <ul>
-  {% for err in active_errors %}
-      <li>{{ err }}</li>
-  {% else %}
-      <li><em>Something's wrong, no errors found</em></li>
-  {% endfor %}
-  </ul>
-
 </div>
-{% endif %}
+{% endfor %}
