@@ -9,7 +9,7 @@
   </button>
 </div>
 {% endfor %}
-{% for error in get_flashed_messages(category_filter=["error"])  
+{% for error in get_flashed_messages(category_filter=["error"])  %}
 <div class="alert alert-danger alert-dismissable" role="alert">
   Error: {{ error }}
   <button 
