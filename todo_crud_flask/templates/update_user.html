@@ -9,6 +9,7 @@
         <p><strong>Username: {{ user['username'] }}</strong> <small><i>(can't be changed)</i></small></p>
         <p><strong>Date joined: </strong> {{   moment(user['created_at']).format('LLL') }} </p>
         <p><strong>Last updated: </strong> {{  moment(user['updated_at']).fromNow(refresh=True)  }} </p>
+        <p><strong>Score: </strong> {{  user['score']  }} </p>
         <form 
           action="update_user" 
           method="post"

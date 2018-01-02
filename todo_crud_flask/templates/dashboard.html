@@ -7,6 +7,13 @@
       <div class="col-sm-12">
         <h1>Dashboard</h1>
 
+        <p>Create notes and save them to your dashboard to earn points.</p>
+        <p>As your score increases, you'll reach higher levels!</p>
+        <p><strong>Your score is: {{ user['score'] }}</strong></p>
+        <p><strong>Your level is: {{ awards.get_award_level(user['score']) }}</strong></p>
+
+        <hr/>
+
         <h3><i class="fa fa-list"></i> Your notes</h3>
         <a href="edit_note" class="btn btn-primary"><i class="fa fa-plus"></i> Add a new note</a>
           <ul class="list-group" id="dashboard-list">
