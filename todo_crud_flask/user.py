@@ -48,7 +48,8 @@ class User():
               'username': username,
               'hashed_password': hashed_password,
               'created_at': created_at,
-              'updated_at': created_at
+              'updated_at': created_at,
+              'score': 1
             }
             db.connection['users'].insert_one(user)
             return True
@@ -89,6 +90,16 @@ class User():
         try:
             user = db.connection['users'].find_one( { "email": email } )
             return user
+
+        except Exception, e:
+            return str(e)
+
+
+    def get_points(self, _id=None):
+        db = Database()
+        try:
+            user = db.connection['users'].find_one( { "_id": _id } )
+            return user['score']
 
         except Exception, e:
             return str(e)

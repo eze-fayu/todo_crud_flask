@@ -32,6 +32,10 @@ class Note():
               'content': content
             }
             res = db.connection['notes'].insert_one(note)
+            res_user = db.connection['users'].update(
+                {'_id': user_id},
+                { '$inc': { 'score': 3 } }
+            )
             return res.inserted_id
 
         except Exception, e:
@@ -67,7 +71,7 @@ class Note():
             return str(e)
 
 
-    def update_note(self, _id, title="", content="", note_type="" ):
+    def update_note(self, user_id, _id, title="", content="", note_type="" ):
         db = Database()
         try:
             res = db.connection['notes'].update(
@@ -80,6 +84,10 @@ class Note():
                         "updated_at": datetime.datetime.utcnow()
                     }, 
                 }
+            )
+            res_user = db.connection['users'].update(
+                {'_id': user_id},
+                { '$inc': { 'score': 1 } }
             )
             return res['nModified']
 
@@ -102,6 +110,10 @@ class Note():
         db = Database()
         try:
             res = db.connection['notes'].delete_one({ '_id': _id, 'user_id': user_id })
+            res_user = db.connection['users'].update(
+                {'_id': user_id},
+                { '$inc': { 'score': 1 } }
+            )
             return res.deleted_count
 
         except Exception, e:

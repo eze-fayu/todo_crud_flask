@@ -46,8 +46,13 @@ def before_route_load():
 def home_route():
     before_route_load()
 
+    found_user = None
+    if sesh.confirm_logged_in():
+        found_user = user.find_by_id(ObjectId(sesh.get_user_id()))
+
     return render_template('home.html', 
                             sesh=sesh,
+                            user=found_user,
                             page_title='Home')
 
 
@@ -114,6 +119,7 @@ def logout_route():
 
     return render_template('logout.html', 
                             sesh=sesh, 
+                            user=found_user,
                             form=form,
                             page_title='Logout')
 
@@ -188,6 +194,7 @@ def dashboard_route():
 
     return render_template('dashboard.html', 
                             sesh=sesh, 
+                            user=found_user,
                             notes=found_notes,
                             form=form,
                             page_title='Dashboard') 
@@ -352,12 +359,14 @@ def edit_note_route():
                     if form.validate():
 
                         # try to update; if we succeed:
-                        if note.update_note(_id=ObjectId(found_note.get('_id', '')), 
+                        if note.update_note(user_id=ObjectId(sesh.get_user_id()), 
+                                            _id=ObjectId(found_note.get('_id', '')), 
                                             title=form.title.data, 
                                             note_type=form.note_type.data, 
                                             content=form.content.data):
 
-                            flash("Note saved!", 'message')
+                            found_user = user.find_by_id(ObjectId(sesh.get_user_id()))
+                            flash("Note saved! +1 point", 'message')
 
                                                
                         # if update fails:
@@ -399,7 +408,8 @@ def edit_note_route():
 
                     # if we found inserted note:
                     if found_note:
-                        flash("Note created!", 'message')
+                        found_user = user.find_by_id(ObjectId(sesh.get_user_id()))
+                        flash("Note created! +3 points", 'message')
                         note_exists_in_db = True
 
                         # update hidden form fields to track _id
@@ -468,7 +478,8 @@ def delete_note_route():
                 # try the delete
                 if note.delete_note(_id=ObjectId(delete_form.note_id.data),
                                     user_id=ObjectId(sesh.get_user_id())):
-                    flash("Note deleted.", 'message')
+                    found_user = user.find_by_id(ObjectId(sesh.get_user_id()))
+                    flash("Note deleted. +1 point", 'message')
                 
                 # if delete failed:
                 else:
@@ -479,11 +490,6 @@ def delete_note_route():
                 flash("Nothing changed - that note isn't attached to your account.", 'message')
 
     return redirect(url_for('dashboard_route'))
-
-
-@app.route('/hello')
-def hello():
-    return 'Hello, World'
 
 
 @app.errorhandler(404)
@@ -498,6 +504,9 @@ def internal_server_error(e):
                             sesh=sesh,
                             page_title='Server Error'), 500
 
+@app.route('/hello')
+def hello():
+    return 'Hello, World'
 
 if __name__ == "__main__":
     manager.run()

@@ -17,7 +17,7 @@
               <ul class="nav navbar-nav navbar-right">
                 {% if sesh.get_logged_in() %}
                   <p class="navbar-text">
-                    Signed in as <strong>{{ sesh.get_username() }}</strong>
+                    <strong>{{ sesh.get_username() }}</strong> | Score: {{ user.score }}
                   </p>
                   <li><a href="dashboard">Dashboard</a></li>
                   <li><a href="update_user"><i class="fa fa-user"></i> Update your profile</a></li>
