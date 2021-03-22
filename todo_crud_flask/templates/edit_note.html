@@ -6,7 +6,7 @@
   <div class="container">
     <div class="row">
       <div class="col-sm-12">
-        <h2><i class="fa fa-pencil"></i> Edit note</h2>
+        <h2><i class="fa fa-pencil"></i> Editar nota</h2>
 
         <form 
           action="edit_note" 
@@ -20,8 +20,8 @@
           </div>
           <div class="form-group">
           {% if note_exists_in_db %}
-            <p><strong>Date created: </strong> {{ moment(note['created_at']).format('LLL') }} </p>
-            <p><strong>Last updated: </strong> {{ moment(note['updated_at']).fromNow(refresh=True) }} </p>
+            <p><strong>Fecha Creación: </strong> {{ moment(note['created_at']).format('LLL') }} </p>
+            <p><strong>Ultima Actualización: </strong> {{ moment(note['updated_at']).fromNow(refresh=True) }} </p>
           {% endif %}
           </div>
           <div class="form-group">
@@ -35,21 +35,21 @@
             {{ macros.form_errors(form.content) }}
           </div>
             <button type="submit" class="btn btn-primary">
-                Save
+                Guardar
             </button>
         </form>
         <br />
-        <a href="dashboard" class="btn btn-warning"><i class="fa fa-arrow-left"></i> Back to Dashboard</a><br />
+        <a href="dashboard" class="btn btn-warning"><i class="fa fa-arrow-left"></i> Volver al Tablero</a><br />
         {% if note_exists_in_db %}
           <br />
           <form 
             action="delete_note" 
             method="POST"
-            onsubmit="return confirm('Are you sure you want to delete this item?');"
+            onsubmit="return confirm('Esta seguro que quiere borrar este item?');"
           >
             {{ delete_form.hidden_tag() }}
             <button type="submit" class="btn btn-danger">
-                <i class="fa fa-trash-o"></i> Delete
+                <i class="fa fa-trash-o"></i> Borrar
             </button>
           </form>
         {% endif %}

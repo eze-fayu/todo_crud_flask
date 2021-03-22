@@ -5,11 +5,11 @@
   <div class="container">
     <div class="row">
       <div class="col-sm-12">
-        <h2><i class="fa fa-user"></i> Update your user profile</h2>
-        <p><strong>Username: {{ user['username'] }}</strong> <small><i>(can't be changed)</i></small></p>
-        <p><strong>Date joined: </strong> {{   moment(user['created_at']).format('LLL') }} </p>
-        <p><strong>Last updated: </strong> {{  moment(user['updated_at']).fromNow(refresh=True)  }} </p>
-        <p><strong>Score: </strong> {{  user['score']  }} </p>
+        <h2><i class="fa fa-user"></i> Actualiza tu perfil</h2>
+        <p><strong>Usuario: {{ user['username'] }}</strong> <small><i>(NO puede ser cambiado)</i></small></p>
+        <p><strong>Fecha Creación: </strong> {{   moment(user['created_at']).format('LLL') }} </p>
+        <p><strong>Ultima Actualizacion: </strong> {{  moment(user['updated_at']).fromNow(refresh=True)  }} </p>
+        <p><strong>Puntaje: </strong> {{  user['score']  }} </p>
         <form 
           action="update_user" 
           method="post"
@@ -25,10 +25,10 @@
           </div>
         </form>
         <div class="form-group">
-          <a class="btn btn-warning" href="dashboard"><i class="fa fa-arrow-left"></i> Dashboard</a>
+          <a class="btn btn-warning" href="dashboard"><i class="fa fa-arrow-left"></i> Tablero</a>
         </div>
         <div class="form-group">
-          <a class="btn btn-danger" href="delete_user"><i class="fa fa-trash-o"></i> Delete account</a>
+          <a class="btn btn-danger" href="delete_user"><i class="fa fa-trash-o"></i> Borrar Cuenta</a>
         </div>
       </div>
     </div>

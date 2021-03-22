@@ -6,28 +6,28 @@
           <div class="container-fluid">
             <div class="navbar-header">
               <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                <span class="sr-only">Toggle navigation</span>
+                <span class="sr-only">Panel de Navegación</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              <a class="navbar-brand" href="/">todo_crud_flask</a>
+              <a class="navbar-brand" href="/">TODO AppList</a>
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
               <ul class="nav navbar-nav navbar-right">
                 {% if sesh.get_logged_in() %}
                   <p class="navbar-text">
-                    <strong>{{ sesh.get_username() }}</strong> | Score: {{ user.score }}
+                    <strong>{{ sesh.get_username() }}</strong> | Puntos: {{ user.score }}
                   </p>
-                  <li><a href="dashboard">Dashboard</a></li>
-                  <li><a href="update_user"><i class="fa fa-user"></i> Update your profile</a></li>
-                  <li><a href="logout"><i class="fa fa-sign-out"></i> Logout</a></li>
+                  <li><a href="dashboard">Tablero</a></li>
+                  <li><a href="update_user"><i class="fa fa-user"></i> Actualizar el perfil</a></li>
+                  <li><a href="logout"><i class="fa fa-sign-out"></i> Salir</a></li>
                 {% else %}
                   <p class="navbar-text">
-                    Sign in or create an account to get started
+                    Conectate o crea un usuario para iniciar.
                   </p>
-                  <li><a href="new_user"><i class="fa fa-user-plus"></i> Register a new user account</a></li>
-                  <li><a href="login"><i class="fa fa-sign-in"></i> Login</a></li>
+                  <li><a href="new_user"><i class="fa fa-user-plus"></i> Registrar una nueva cuenta</a></li>
+                  <li><a href="login"><i class="fa fa-sign-in"></i> Conectate</a></li>
                 {% endif %}
               </ul>
             </div><!-- /.navbar-collapse -->

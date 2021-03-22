@@ -5,40 +5,32 @@
   <div class="container">
     <div class="row">
       <div class="col-sm-12">
-        <h1>TODO List: Flask</h1>
-        <p class="lead">A simple TODO list CRUD app built with Flask. Make an account, create notes, save them to your dashboard, and earn points to increase your score and level up.</p>
+        <h1>TODO List: NO TE OLVIDES LAS COSAS!!</h1>
+        <p class="lead">Simple aplicacion para anotar las tareas pendiertes y no olvidar nada.</p>
 
         {% if sesh.get_user_id() %}
-          <h3>You are signed in <small>{{ sesh.get_username() }}</small></h3>
+          <h3>Ya iniciaste sesión <small>{{ sesh.get_username() }}</small></h3>
           <div class="form-group">
-            <a href="dashboard" class="btn btn-primary"><i class="fa fa-list"></i> Go to dashboard</a>
+            <a href="dashboard" class="btn btn-primary"><i class="fa fa-list"></i> Ir al tablero</a>
           </div>
           <div class="form-group">
-            <a href="logout" class="btn btn-danger"><i class="fa fa-sign-out"></i> Logout</a>
+            <a href="logout" class="btn btn-danger"><i class="fa fa-sign-out"></i> Salir</a>
           </div>
         {% endif %}
 
         {% if not sesh.get_user_id() %}
-          <h3>New? Create a new user</h3>
-          <a href="new_user" class="btn btn-primary"><i class="fa fa-user-plus"></i> Register a new user account</a>
-          <h3>Already have a username? Login</h3>
-          <a href="login" class="btn btn-warning"><i class="fa fa-sign-in"></i> Login</a>
+          <h3>Nuevo? Crea un usuario</h3>
+          <a href="new_user" class="btn btn-primary"><i class="fa fa-user-plus"></i> Registrar una nueva cuenta</a>
+          <h3>Tenés usuario? Conectate</h3>
+          <a href="login" class="btn btn-warning"><i class="fa fa-sign-in"></i> Iniciar</a>
         {% endif %}
 
-        <h4>Features:</h4>
+        <h4>Prestaciones:</h4>
         <ul>
-          <li>Account creation + login/logout</li>
-          <li>Update or delete your account</li>
-          <li>Create, update, delete notes</li>
+          <li>Creación de cuentas + Inicio/Salida</li>
+          <li>Actualizacion/eliminación de cuenta</li>
+          <li>Crear, actualizar, borrar notas</li>
         </ul>
-        <h4>Stack:</h4>
-         <ul>
-          <li><a href="http://flask.pocoo.org/" title="Flask" target="_blank">Flask</a></li>
-          <li><a href="https://mlab.com/" title="mLab MongoDB" target="_blank">mLab MongoDB</a> + <a href="https://api.mongodb.com/python/current/" title="PyMongo" target="_blank">PyMongo</a></li>
-          <li><a href="https://flask-wtf.readthedocs.io/en/stable/" title="Flask-WTForms" target="_blank">Flask-WTForms</a></li>
-          <li><a href="http://getbootstrap.com/" title="Bootstrap" target="_blank">Bootstrap</a></li>
-          <li><a href="https://www.heroku.com/" title="Heroku" target="_blank">Heroku</a></li>
-        </ul>       
 
       </div>
     </div>

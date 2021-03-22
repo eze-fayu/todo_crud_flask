@@ -6,9 +6,9 @@
   <div class="container">
     <div class="row">
       <div class="col-sm-12">
-        <h2><i class="fa fa-trash-o"></i> Delete user account</h2>
-        <p>Are you sure you want to delete your account?</p>
-        <p>Username: <strong>{{ sesh.get_username() }}</strong></p>
+        <h2><i class="fa fa-trash-o"></i> Borrar cuenta de usuario</h2>
+        <p>Está seguro que quiere borrar la cuenta?</p>
+        <p>Usuario: <strong>{{ sesh.get_username() }}</strong></p>
         <form 
           action="delete_user" 
           method="post" 
@@ -18,12 +18,12 @@
 
           <div class="form-group">
             <button type="submit" class="btn btn-danger">
-                <i class="fa fa-trash-o"></i> Delete
+                <i class="fa fa-trash-o"></i> Borrar
             </button>
           </div>
         </form>
         <div class="form-group">
-          <a href="update_user" class="btn btn-primary"><i class="fa fa-ban"></i> Cancel - don't delete my account</a>
+          <a href="update_user" class="btn btn-primary"><i class="fa fa-ban"></i> Cancelar - no borrar mi cuenta</a>
         </div>
       </div>
     </div>
