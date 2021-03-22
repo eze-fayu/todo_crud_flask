@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 ## USANDO ACTUALMENTE
+=======
+# EN USO ACTUALMENTE
+>>>>>>> 58a99a6269a59c259d58130dba5e1b97c849b602
 __
 
 # todo_crud_flask
