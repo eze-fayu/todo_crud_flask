@@ -1,6 +1,7 @@
 # -*- coding: utf8 -*-
 from pymongo import MongoClient
 import os
+import dns
 
 class Database():
     '''
