@@ -54,7 +54,7 @@ class User():
             db.connection['users'].insert_one(user)
             return True
 
-        except Exception, e:
+        except Exception as e:
             return str(e)
 
 
@@ -64,7 +64,7 @@ class User():
             users = db.connection['users'].find()
             return users
 
-        except Exception, e:
+        except Exception as e:
             return str(e)
 
     def find_by_username(self, username=""):
@@ -73,7 +73,7 @@ class User():
             user = db.connection['users'].find_one( { "username": username } )
             return user
 
-        except Exception, e:
+        except Exception as e:
             return str(e)
 
     def find_by_id(self, _id=None):
@@ -82,7 +82,7 @@ class User():
             user = db.connection['users'].find_one( { "_id": _id } )
             return user
 
-        except Exception, e:
+        except Exception as e:
             return str(e)
 
     def find_by_email(self, email=None):
@@ -91,7 +91,7 @@ class User():
             user = db.connection['users'].find_one( { "email": email } )
             return user
 
-        except Exception, e:
+        except Exception as e:
             return str(e)
 
 
@@ -101,7 +101,7 @@ class User():
             user = db.connection['users'].find_one( { "_id": _id } )
             return user['score']
 
-        except Exception, e:
+        except Exception as e:
             return str(e)
 
 
@@ -119,7 +119,7 @@ class User():
             )
             return res['nModified']
 
-        except Exception, e:
+        except Exception as e:
             return str(e)
 
 
@@ -131,6 +131,6 @@ class User():
             res = db.connection['users'].delete_one({ '_id': _id })
             return res['nModified']
 
-        except Exception, e:
+        except Exception as e:
             return str(e)
 
