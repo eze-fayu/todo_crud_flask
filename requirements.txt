@@ -8,3 +8,4 @@ Flask_WTF==0.14.2
 Flask-Script==2.0.5
 Flask-Moment==0.5.1
 werkzeug==0.16.1
+email-validator==1.1.2
