@@ -1,5 +1,5 @@
 # -*- coding: utf8 -*-
-from database import Database
+from todo_crud_flask.database import Database
 from flask import escape
 import datetime
 
