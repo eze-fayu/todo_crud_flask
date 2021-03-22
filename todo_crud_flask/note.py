@@ -38,7 +38,7 @@ class Note():
             )
             return res.inserted_id
 
-        except Exception, e:
+        except Exception as e:
             return str(e)
 
 
@@ -48,7 +48,7 @@ class Note():
             res = db.connection['notes'].find()
             return res
 
-        except Exception, e:
+        except Exception as e:
             return str(e)
 
 
@@ -58,7 +58,7 @@ class Note():
             res = db.connection['notes'].find_one( { "_id": _id } )
             return res
 
-        except Exception, e:
+        except Exception as e:
             return str(e)
 
     def find_by_user_id(self, user_id=None):
@@ -67,7 +67,7 @@ class Note():
             res = db.connection['notes'].find( { "user_id": user_id } )
             return res
 
-        except Exception, e:
+        except Exception as e:
             return str(e)
 
 
@@ -91,7 +91,7 @@ class Note():
             )
             return res['nModified']
 
-        except Exception, e:
+        except Exception as e:
             return str(e)
 
 
@@ -101,7 +101,7 @@ class Note():
             res = db.connection['notes'].find_one( { "_id": _id, "user_id": user_id } )
             return res
             
-        except Exception, e:
+        except Exception as e:
             return str(e)
 
 
@@ -116,7 +116,7 @@ class Note():
             )
             return res.deleted_count
 
-        except Exception, e:
+        except Exception as e:
             return str(e)
 
     def delete_all_user_notes(self, user_id):
@@ -125,6 +125,6 @@ class Note():
             res = db.connection['notes'].delete_many({ 'user_id': user_id })
             return res.deleted_count
 
-        except Exception, e:
+        except Exception as e:
             return str(e)
 
