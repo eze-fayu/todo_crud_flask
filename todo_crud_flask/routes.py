@@ -32,6 +32,9 @@ hashing = Hashing(app)
 moment = Moment(app)
 manager = Manager(app)
 
+# agregado x mi
+csrf.init_app(app)
+
 # app classes
 sesh = Sesh()
 user = User()
