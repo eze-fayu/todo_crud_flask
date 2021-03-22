@@ -4,7 +4,7 @@ body {
 
 .container-wrap {
   padding: 1em;
-  background-color: white; }
+  background-color: gray; }
 
 .main {
   min-height: 500px;
