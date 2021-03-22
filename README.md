@@ -1,3 +1,6 @@
+## USANDO ACTUALMENTE
+__
+
 # todo_crud_flask
 
 A todo-list CRUD app built with Flask + MongoDB.
@@ -66,7 +69,7 @@ Push to heroku
 ## TODO
 
 - ~flask-script for command-line options~
-- ~flask-moment for datetimes~  
+- ~flask-moment for datetimes~
 - ~404 and 500 pages~
 - ~Validate password + repeat password using EqualTo~
 - ~Use flash() for messages~
