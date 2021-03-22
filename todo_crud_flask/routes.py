@@ -10,7 +10,7 @@ from flask_moment import Moment
 from flask_hashing import Hashing
 from flask_wtf.csrf import CSRFProtect
 
-# from awards import Awards
+from awards import Awards
 from user import User
 from note import Note
 from sesh import Sesh
@@ -36,7 +36,7 @@ manager = Manager(app)
 sesh = Sesh()
 user = User()
 note = Note()
-# awards = Awards()
+awards = Awards()
 
 def before_route_load():
     url_for('static', filename='img/**/*.jpg')
@@ -195,7 +195,7 @@ def dashboard_route():
 
     return render_template('dashboard.html', 
                             sesh=sesh, 
-                            # awards=awards,
+                            awards=awards,
                             user=found_user,
                             notes=found_notes,
                             form=form,
