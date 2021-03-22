@@ -10,11 +10,11 @@ from flask_moment import Moment
 from flask_hashing import Hashing
 from flask_wtf.csrf import CSRFProtect
 
-from awards import Awards
-from user import User
-from note import Note
-from sesh import Sesh
-from forms import LoginForm, \
+from todo_crud_flask.awards import Awards
+from todo_crud_flask.user import User
+from todo_crud_flask.note import Note
+from todo_crud_flask.sesh import Sesh
+from todo_crud_flask.forms import LoginForm, \
                   LogoutForm, \
                   NewUserForm, \
                   UpdateUserForm, \
